@@ -7,6 +7,7 @@
 <body>
 <form action="/board/update" method="post" name="updateForm">
     <input type="hidden" name="id" th:value="${boardUpdate.id}">
+<!--    writer: <input type="text" name="boardWriter" th:value="${boardUpdate.boardWriter}" readonly> <br>-->
     writer: <input type="text" name="boardWriter" th:value="${boardUpdate.boardWriter}" readonly> <br>
     pass: <input type="text" name="boardPass" id="boardPass"> <br>
     title: <input type="text" name="boardTitle" th:value="${boardUpdate.boardTitle}"> <br>
