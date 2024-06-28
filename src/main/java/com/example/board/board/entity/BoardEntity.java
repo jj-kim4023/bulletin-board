@@ -19,26 +19,23 @@ public class BoardEntity extends BaseEntity {
     @Id // pk 컬럼 지정. 필수
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
-
-    @Column(length = 20, nullable = false) // 크기는 20이고 not null (null 없다)
+    @Column(length = 20, nullable = false) // 크기 20, not null
     private String boardWriter;
-
-    @Column // 크기는 255, null 가능
+    @Column // 크기 255, null 가능
     private String boardPass;
-
     @Column
     private String boardTitle;
-
     @Column(length = 500)
     private String boardContents;
-
-    @Column int boardHits;
-
+    @Column
+    private int boardHits;
     @Column
     private int fileAttached; // 1 or 0
-
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
 
     public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
@@ -50,7 +47,6 @@ public class BoardEntity extends BaseEntity {
         boardEntity.setFileAttached(0); // 파일 없음.
         return boardEntity;
     }
-
     public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setId(boardDTO.getId());
@@ -61,7 +57,6 @@ public class BoardEntity extends BaseEntity {
         boardEntity.setBoardHits(boardDTO.getBoardHits());
         return boardEntity;
     }
-
     public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
